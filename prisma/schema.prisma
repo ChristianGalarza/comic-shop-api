@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Comic {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  price       Float
+  imageUrl    String
+  releaseDate DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  //Writer Relation
+  writerId Int
+  writer   Person @relation("ComicWriter", fields: [writerId], references: [id])
+
+  //Drawer Relation
+  drawerId Int
+  drawer   Person @relation("ComicDrawer", fields: [drawerId], references: [id])
+
+  //Publisher Relation
+  publisherId Int
+  publisher   Publisher @relation(fields: [publisherId], references: [id])
+
+  //Inventory Relation(1:1)
+  inventory Inventory?
+}
+
+model Person {
+  id            Int      @id @default(autoincrement())
+  name          String   @unique
+  isWriter      Boolean
+  isDrawer      Boolean
+  //Inverted Relation
+  writtenComics Comic[]  @relation("ComicWriter")
+  drawnComics   Comic[]  @relation("ComicDrawer")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Publisher {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  //Comic Relation
+  comics Comic[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Inventory {
+  id       Int @id @default(autoincrement())
+  quantity Int @default(0)
+
+  //Foreign key(comic_id)
+  comicId Int   @unique
+  comic   Comic @relation(fields: [comicId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
