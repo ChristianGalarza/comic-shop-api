@@ -23,6 +23,7 @@ export class ComicService {
           publisher: true,
           writer: true,
           drawer: true,
+          coverArtist: true,
         },
       });
       return {
@@ -50,6 +51,7 @@ export class ComicService {
           publisher: true,
           writer: true,
           drawer: true,
+          coverArtist: true,
         },
       });
       return {
@@ -101,10 +103,12 @@ export class ComicService {
               price: parseFloat(newComicDto.price.toString()),
               imageUrl: publicUrl,
               releaseDate: newComicDto.releaseDate,
-
               publisher: { connect: { id: Number(newComicDto.publisherId) } },
               writer: { connect: { id: Number(newComicDto.writerId) } },
               drawer: { connect: { id: Number(newComicDto.drawerId) } },
+              coverArtist: {
+                connect: { id: Number(newComicDto.coverArtistId) },
+              },
             },
           });
           const inventory = await this.prisma.inventory.create({
@@ -220,6 +224,11 @@ export class ComicService {
               }),
               ...(updateComicDto.drawerId && {
                 drawer: { connect: { id: Number(updateComicDto.drawerId) } },
+              }),
+              ...(updateComicDto.coverArtistId && {
+                coverArtist: {
+                  connect: { id: Number(updateComicDto.coverArtistId) },
+                },
               }),
             },
           });

@@ -29,6 +29,11 @@ export class ComicDto {
   })
   drawerId: number;
   @ApiProperty({
+    description: 'Cover Artist ID',
+    example: '1',
+  })
+  coverArtistId: number;
+  @ApiProperty({
     description: 'Price',
     example: '91.00',
   })

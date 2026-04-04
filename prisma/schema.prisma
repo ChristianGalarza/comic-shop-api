@@ -33,6 +33,10 @@ model Comic {
   drawerId Int
   drawer   Person @relation("ComicDrawer", fields: [drawerId], references: [id])
 
+  //Cover Artist Relation
+  coverArtistId Int
+  coverArtist   Person @relation("ComicCoverArtist", fields: [coverArtistId], references: [id])
+
   //Publisher Relation
   publisherId Int
   publisher   Publisher @relation(fields: [publisherId], references: [id])
@@ -49,6 +53,7 @@ model Person {
   //Inverted Relation
   writtenComics Comic[]  @relation("ComicWriter")
   drawnComics   Comic[]  @relation("ComicDrawer")
+  coverComics   Comic[]  @relation("ComicCoverArtist")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
