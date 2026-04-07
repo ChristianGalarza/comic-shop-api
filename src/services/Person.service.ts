@@ -1,14 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PersonDto } from 'src/dto/Person.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { SupabaseService } from 'supabase/supabase.service';
 
 @Injectable()
 export class PersonService {
-  constructor(
-    private prisma: PrismaService,
-    private supabase: SupabaseService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async findAll() {
     try {

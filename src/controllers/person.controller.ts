@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam } from '@nestjs/swagger';
 import { PersonDto } from 'src/dto/Person.dto';
 import { PersonService } from 'src/services/Person.service';
@@ -14,7 +21,7 @@ export class PersonController {
 
   @Get(':id')
   @ApiParam({ name: 'id', type: Number })
-  async findPersonById(id: number) {
+  async findPersonById(@Param('id', ParseIntPipe) id: number) {
     return await this.personService.findPersonById(id);
   }
 

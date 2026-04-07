@@ -4,10 +4,7 @@ import { SupabaseService } from 'supabase/supabase.service';
 
 @Injectable()
 export class PublisherService {
-  constructor(
-    private prisma: PrismaService,
-    private supabase: SupabaseService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async findAll() {
     try {
