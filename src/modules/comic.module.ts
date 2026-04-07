@@ -11,6 +11,8 @@ import { UserController } from 'src/controllers/user.controller';
 import { UserService } from 'src/services/User.service';
 import { AddressService } from 'src/services/Address.service';
 import { AddressController } from 'src/controllers/address.controller';
+import { OrderController } from 'src/controllers/order.controller';
+import { OrderService } from 'src/services/Order.service';
 
 @Module({
   controllers: [
@@ -19,6 +21,7 @@ import { AddressController } from 'src/controllers/address.controller';
     PersonController,
     UserController,
     AddressController,
+    OrderController,
   ],
   providers: [
     ComicService,
@@ -26,6 +29,7 @@ import { AddressController } from 'src/controllers/address.controller';
     PersonService,
     UserService,
     AddressService,
+    OrderService,
   ],
   exports: [
     ComicService,
@@ -33,6 +37,7 @@ import { AddressController } from 'src/controllers/address.controller';
     PersonService,
     UserService,
     AddressService,
+    OrderService,
   ],
   imports: [PrismaModule, SupabaseModule],
 })
