@@ -29,6 +29,8 @@
     "@nestjs/swagger": "^11.2.0",
     "@prisma/client": "^6.16.3",
     "@supabase/supabase-js": "^2.74.0",
+    "@types/bcrypt": "^6.0.0",
+    "bcrypt": "^6.0.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "prisma": "^6.16.3",
