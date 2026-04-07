@@ -76,6 +76,18 @@ model Order {
   updatedAt DateTime @updatedAt
 }
 
+model OrderItem {
+  id       Int   @id @default(autoincrement())
+  quantity Int
+  price    Float // Price at the time of order
+
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  comicId Int
+  comic   Comic @relation(fields: [comicId], references: [id])
+}
+
 model PullRequest {
   id       Int        @id @default(autoincrement())
   status   PullStatus @default(PENDING_PAYMENT)
@@ -91,18 +103,6 @@ model PullRequest {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model OrderItem {
-  id       Int   @id @default(autoincrement())
-  quantity Int
-  price    Float // Price at the time of order
-
-  orderId Int
-  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
-
-  comicId Int
-  comic   Comic @relation(fields: [comicId], references: [id])
 }
 
 model Comic {
