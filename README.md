@@ -40,25 +40,30 @@ ComicStore (E-commerce)
 ## 🛠️ Tecnologías Utilizadas
 
 ### Backend Framework
+
 - **NestJS 11** - Framework progresivo de Node.js
 - **TypeScript** - Tipado estático
 
 ### Base de Datos
+
 - **PostgreSQL** - Base de datos relacional (Supabase)
 - **Prisma ORM** - ORM moderno y seguro
 - **Prisma Migrations** - Control de versiones de esquema
 
 ### Autenticación & Seguridad
+
 - **JWT** - JSON Web Tokens para autenticación
 - **Passport.js** - Middleware de autenticación
 - **bcrypt** - Hash seguro de contraseñas
 - **Supabase** - Autenticación y almacenamiento
 
 ### API & Documentación
+
 - **Swagger/OpenAPI** - Documentación interactiva
 - **Swagger UI Express** - UI para explorar endpoints
 
 ### Herramientas de Desarrollo
+
 - **ESLint** - Linting de código
 - **Prettier** - Formateador de código
 - **Jest** - Framework de testing
@@ -70,7 +75,7 @@ ComicStore (E-commerce)
 
 ### Requisitos Previos
 
-- **Node.js** 18+ 
+- **Node.js** 18+
 - **pnpm** 8+
 - **PostgreSQL** (o acceso a Supabase)
 - **Git**
@@ -78,11 +83,13 @@ ComicStore (E-commerce)
 ### Instalación
 
 1. **Clonar el repositorio**
+
 ```bash
 cd ecommerce-api/comic-store-api
 ```
 
 2. **Instalar dependencias**
+
 ```bash
 pnpm install
 ```
@@ -127,6 +134,7 @@ pnpm exec prisma generate
 ## 🚀 Ejecución
 
 ### Desarrollo
+
 ```bash
 # Modo watch (recarga automática)
 pnpm run start:dev
@@ -136,6 +144,7 @@ pnpm run start:dev
 ```
 
 ### Producción
+
 ```bash
 # Compilar
 pnpm run build
@@ -145,6 +154,7 @@ pnpm run start:prod
 ```
 
 ### Debug
+
 ```bash
 pnpm run start:debug
 ```
@@ -154,10 +164,12 @@ pnpm run start:debug
 ## 📚 Endpoints Principales
 
 ### Autenticación
+
 - `POST /auth/register` - Registrar usuario (futuro)
 - `POST /auth/login` - Iniciar sesión (futuro)
 
 ### Cómics
+
 - `GET /comics` - Listar todos los cómics
 - `GET /comics/:id` - Obtener cómic por ID
 - `POST /comics` - Crear nuevo cómic (con imagen)
@@ -165,35 +177,41 @@ pnpm run start:debug
 - `DELETE /comics/:id` - Eliminar cómic
 
 ### Usuarios
+
 - `GET /users` - Listar usuarios
 - `GET /users/:id` - Obtener usuario por ID
 - `POST /users` - Crear usuario
 - `PATCH /users/:id` - Actualizar usuario
 
 ### Órdenes
+
 - `GET /orders` - Listar órdenes
 - `GET /orders/:id` - Obtener orden por ID
 - `POST /orders` - Crear orden
 - `PATCH /orders/:id` - Actualizar estado de orden
 
 ### Autores/Artistas (Personas)
+
 - `GET /persons` - Listar personas
 - `GET /persons/:id` - Obtener persona por ID
 - `POST /persons` - Crear persona
 - `DELETE /persons/:id` - Eliminar persona
 
 ### Editoriales
+
 - `GET /publishers` - Listar editoriales
 - `GET /publishers/:id` - Obtener editorial por ID
 - `POST /publishers` - Crear editorial
 - `DELETE /publishers/:id` - Eliminar editorial
 
 ### Direcciones
+
 - `GET /addresses` - Listar direcciones
 - `POST /addresses` - Crear dirección
 - `DELETE /addresses/:id` - Eliminar dirección
 
 ### Órdenes de Compra (Pull Requests)
+
 - `GET /orders` - Listar pull requests
 - `POST /orders` - Crear pull request
 - `PATCH /orders/:id` - Actualizar estado
@@ -205,6 +223,7 @@ pnpm run start:debug
 ### Modelos Principales
 
 #### User (Usuario)
+
 - `id` - ID único
 - `email` - Email único
 - `password` - Contraseña hasheada
@@ -212,6 +231,7 @@ pnpm run start:debug
 - Relaciones: órdenes, pull requests, direcciones
 
 #### Comic (Cómic)
+
 - `id` - ID único
 - `title` - Título
 - `description` - Descripción
@@ -221,6 +241,7 @@ pnpm run start:debug
 - Relaciones: escritor, dibujante, artista de portada, editorial, inventario
 
 #### Person (Persona - Creador)
+
 - `id` - ID único
 - `name` - Nombre único
 - `isWriter` - Es escritor
@@ -228,6 +249,7 @@ pnpm run start:debug
 - Relaciones: cómics escritos, dibujados, portadas
 
 #### Order (Orden)
+
 - `id` - ID único
 - `status` - Estado (PENDING, PAID, SHIPPED, DELIVERED, CANCELLED)
 - `total` - Total del pedido
@@ -235,6 +257,7 @@ pnpm run start:debug
 - `shippingAddress` - Dirección de envío
 
 #### Inventory (Inventario)
+
 - `comicId` - ID del cómic
 - `quantity` - Cantidad disponible
 
@@ -273,6 +296,7 @@ pnpm run format
 ## 📊 Estados de Órdenes
 
 **OrderStatus:**
+
 - `PENDING` - Agregado al carrito o pendiente de pago
 - `PAID` - Pago completado
 - `SHIPPED` - Orden enviada
@@ -280,6 +304,7 @@ pnpm run format
 - `CANCELLED` - Orden cancelada
 
 **PullStatus:**
+
 - `PENDING_PAYMENT` - En lista de reserva, pendiente de pago
 - `PAID` - Pago completado, cómic reservado
 - `FULLFILLED` - Cómic llegó, listo para entrega, eliminado del inventario
@@ -296,6 +321,7 @@ La API utiliza **JWT (JSON Web Tokens)** para autenticación:
 3. El servidor valida el token y otorga acceso
 
 ### Estrategia JWT
+
 - Secret almacenado en `JWT_SECRET`
 - Incluir token en header de peticiones autenticadas
 
@@ -304,9 +330,9 @@ La API utiliza **JWT (JSON Web Tokens)** para autenticación:
 ## 📡 CORS Configurado
 
 ```javascript
-allowedOrigins: ['http://localhost:3000']
-allowedMethods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH']
-credentials: true
+allowedOrigins: ['http://localhost:3000'];
+allowedMethods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'];
+credentials: true;
 ```
 
 Actualizar `src/main.ts` si se agregan dominio de producción.
@@ -316,11 +342,13 @@ Actualizar `src/main.ts` si se agregan dominio de producción.
 ## 🚀 Despliegue
 
 ### Requisitos
+
 - Servidor con Node.js 18+
 - Base de datos PostgreSQL
 - Variables de entorno correctamente configuradas
 
 ### Proceso
+
 ```bash
 # 1. Build
 pnpm run build
@@ -334,6 +362,7 @@ pnpm run start:prod
 ```
 
 ### Recomendaciones
+
 - Usar gestor de procesos (PM2, systemd)
 - Configurar HTTPS
 - Implementar logging centralizado
@@ -386,6 +415,7 @@ src/
 ## 🔄 Flujos de Negocio
 
 ### Compra de Cómic
+
 1. Usuario revisa inventario
 2. Agrega cómic al carrito (crea Order con status PENDING)
 3. Procesa pago (status → PAID)
@@ -394,6 +424,7 @@ src/
 6. Cliente recibe (status → DELIVERED)
 
 ### Reserva de Cómic (Pull Request)
+
 1. Usuario solicita reservar cómic
 2. Sistema crea PullRequest con status PENDING_PAYMENT
 3. Usuario paga (status → PAID, inventario se reserva)
