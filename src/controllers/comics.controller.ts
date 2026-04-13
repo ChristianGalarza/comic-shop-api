@@ -24,6 +24,12 @@ export class ComicController {
     return await this.comicService.findAll();
   }
 
+  @Get('new-arrivals')
+  @ApiOperation({ summary: 'Get lastest comics for homepage' })
+  async findLatestArrivals() {
+    return await this.comicService.findNewArrivals(4);
+  }
+
   @Get(':id')
   @ApiParam({ name: 'id', type: Number })
   async findComicById(@Param('id', ParseIntPipe) id: number) {

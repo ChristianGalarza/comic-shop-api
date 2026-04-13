@@ -40,6 +40,32 @@ export class ComicService {
     }
   }
 
+  async findNewArrivals(limit: number = 4) {
+    try {
+      const comics = await this.prisma.comic.findMany({
+        take: limit,
+        orderBy: {
+          createdAt: 'desc',
+        },
+        include: {
+          publisher: true,
+          writer: true,
+        },
+      });
+      return {
+        success: true,
+        message: 'Últimos comics obtenidos',
+        data: comics,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: 'Error al obtener comics',
+        details: error.message,
+      };
+    }
+  }
+
   async findComicById(id: number) {
     try {
       const comic = await this.prisma.comic.findUnique({
